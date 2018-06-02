@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WorldCup.Models.Match>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Match Schedule for World Cup 2018</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p> @Html.ActionLink("Create New", "Create") </p>
+    <p>Welcome @User.Identity.Name [@Html.ActionLink("Log out", "LogOut", "Home")]</p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MatchDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Information)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatchDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team1.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team2.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Information)
+        </td>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MatchId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MatchId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MatchId })
+            </td>
+        }
+    </tr>
+    }
+
+</table>
